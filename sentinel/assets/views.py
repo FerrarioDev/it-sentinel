@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Asset
+from .serializers import AssetSerializer
 
-# Create your views here.
+class AssetListView(generics.ListAPIView):
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
