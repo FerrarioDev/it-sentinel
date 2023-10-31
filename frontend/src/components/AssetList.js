@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AssetDetail from './AssetDetail';
 
 const AssetList = () => {
   const [assets, setAssets] = useState([]);
+  const [selectedAsset, setSelectedAsset] = useState(null);
 
   useEffect(() => {
     async function fetchAssets() {
@@ -10,18 +12,22 @@ const AssetList = () => {
         const response = await axios.get('http://127.0.0.1:8000/api/');
         console.log(response.data);
         setAssets(response.data);
-      } catch (error) {
-        console.error('Error fetching assets:', error);
+      } catch (e) {
+        console.error('Error fetching assets:', e);
       }
     }
     fetchAssets();
   }, []);
 
+  const handleAssetClick = (asset) => {
+    setSelectedAsset(asset);
+  }
+  
   return (
     <div>
       <h1>Asset List</h1>
       { assets.length === 0 ? (
-        <p>No assets to display</p>
+        <p>No assets found</p>
       ) : (
         <table>
           <thead>
@@ -39,7 +45,7 @@ const AssetList = () => {
           </thead>
           <tbody>
             {assets.map((asset) => (
-              <tr key={asset.id}>
+              <tr key={asset.id} onClick={() => handleAssetClick(asset)}>
                 <td>{asset.id}</td>
                 <td>{asset.model || 'N/A'}</td>
                 <td>{asset.user || 'N/A'}</td>
@@ -54,6 +60,7 @@ const AssetList = () => {
           </tbody>
         </table>    
     )}
+    {selectedAsset && <AssetDetail asset={selectedAsset} />}
     </div>
   );
 };
