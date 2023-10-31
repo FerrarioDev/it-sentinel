@@ -7,14 +7,13 @@ const AssetList = () => {
   useEffect(() => {
     async function fetchAssets() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/assets/');
+        const response = await axios.get('http://127.0.0.1:8000/api/');
         console.log(response.data);
         setAssets(response.data);
       } catch (error) {
         console.error('Error fetching assets:', error);
       }
     }
-
     fetchAssets();
   }, []);
 
