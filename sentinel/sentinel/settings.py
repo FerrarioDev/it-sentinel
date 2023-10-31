@@ -43,18 +43,21 @@ INSTALLED_APPS = [
     'reports',
     'users',
 
+    # Installed Apps
     'rest_framework',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny',
     ]
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
+    'django.middleware.common.CommonMiddleware', 
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +65,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
 ]
 
 ROOT_URLCONF = 'sentinel.urls'
