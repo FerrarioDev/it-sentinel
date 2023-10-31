@@ -45,8 +45,8 @@ const AssetList = () => {
           </thead>
           <tbody>
             {assets.map((asset) => (
-              <tr key={asset.id} onClick={() => handleAssetClick(asset)}>
-                <td>{asset.id}</td>
+              <tr key={asset.id} >
+                <td onClick={() => handleAssetClick(asset)}>{asset.id}</td>
                 <td>{asset.model || 'N/A'}</td>
                 <td>{asset.user || 'N/A'}</td>
                 <td>{asset.asset_number || 'N/A'}</td>
