@@ -1,8 +1,7 @@
-from django.contrib import admin
 from django.urls import path
-from rest_framework_simplejwt import views as jwt_views
+from .views import UserRegistrationView, UserLoginView
 
 urlpatterns = [
-    path('',jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/',UserRegistrationView.as_view(), name='user_registration'),
+    path('login/', UserLoginView.as_view(), name='user_login'),
 ]
