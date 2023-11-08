@@ -47,13 +47,18 @@ INSTALLED_APPS = [
     # Installed Apps
     'rest_framework',
     'corsheaders',
-    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 MIDDLEWARE = [
@@ -75,11 +80,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BACKLIST_AFTER_ROTATION': True,
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'your_project.users.api.utils.jwt_response_payload_handler',
 }
 
 ROOT_URLCONF = 'sentinel.urls'
