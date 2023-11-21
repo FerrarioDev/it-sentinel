@@ -7,7 +7,7 @@ const AssetPreview = () => {
     useEffect(() => {
         async function fetchRecentAssets() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api');
+                const response = await axios.get('http://127.0.0.1:8000/api/assets');
                 setRecentAssets(response.data);
             } catch (e) {
                 console.error('Error fetching assets:', e);

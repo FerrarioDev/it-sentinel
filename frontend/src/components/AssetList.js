@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AssetDetail from './AssetDetail';
-
+import { API_URLS } from '../constants';
 const AssetList = () => {
   const [assets, setAssets] = useState([]);
   const [selectedAsset, setSelectedAsset] = useState(null);
@@ -9,7 +9,7 @@ const AssetList = () => {
   useEffect(() => {
     async function fetchAssets() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/');
+        const response = await axios.get(API_URLS.ASSETS);
         console.log(response.data);
         setAssets(response.data);
       } catch (e) {

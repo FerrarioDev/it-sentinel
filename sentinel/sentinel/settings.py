@@ -80,6 +80,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
 
+ALLOWED_HOSTS = ['*']
+
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'your_project.users.api.utils.jwt_response_payload_handler',
 }
@@ -133,6 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization

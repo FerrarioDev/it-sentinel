@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-
+import { API_URLS } from '../constants';
 
 const AssetDetail = ({ match }) => {
   const [asset, setAsset] = useState();
   const [formData, setFormData] = useState();
-
+  const url = `${API_URLS.ASSETS}${match.params.pk}/`
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/${match.params.pk}/')
+    axios.get(url)
     .then(response => {
       setAsset(response.data)
     })
@@ -21,7 +21,7 @@ const AssetDetail = ({ match }) => {
   }
 
   const handleFormSubmit = () => {
-    axios.put('http://127.0.0.1:8000/api/${match.params.pk}/', formData)
+    axios.put('http://127.0.0.1:8000/api/assets/${match.params.pk}/', formData)
     .then(response => {
       console.log('Asset updated:', response.data)
     })
