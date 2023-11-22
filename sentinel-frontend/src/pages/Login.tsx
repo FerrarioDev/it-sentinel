@@ -3,17 +3,33 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useHistory } from 'react-router';
+import { useNavigate } from "react-router-dom";
+import authSlice from '../store/slices/auth';
 
 function Login() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate  = useNavigate();
 
     const handleLogin = (dnarID: string, password: string) => {
-
-    };
+        axios
+          .post(`${process.env.REACT_APP_API_URL}/users/login/`, { dnarID, password })
+          .then((res) => {
+            dispatch(
+              authSlice.actions.setAuthTokens({
+                token: res.data.access,
+                refreshToken: res.data.refresh,
+              })
+            );
+            dispatch(authSlice.actions.setAccount(res.data.user));
+            setLoading(false);
+            navigate('/');
+          })
+          .catch((err) => {
+            setMessage(err.response.data.detail.toString());
+          });
+      };
 
     const formik = useFormik({
         initialValues: {
@@ -40,10 +56,10 @@ function Login() {
                         <input
                             className='border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500' 
                             id='dnarID'
-                            type="id"
+                            type="text"
                             placeholder='200120000'
                             name='dnarID'
-                            value={formik.dnarID}
+                            value={formik.values.dnarID}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         />
